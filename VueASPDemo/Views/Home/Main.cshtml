@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "主页";
+    Layout = "~/Views/Shared/My_Layout.cshtml";
+}
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden
+    }
+
+    .el-header, .el-footer {
+        color: black;
+        line-height: 60px;
+        margin-left: -10px;
+        margin-top: -10px;
+    }
+
+    /*.el-aside {
+                    background-color: #D3DCE6;
+                    color: #333;
+                    text-align: center;
+                    line-height: 200px;
+                }
+        */
+    .el-main {
+        width: 100%;
+        height: 470px;
+        margin-top: -4px;
+        margin-left: -4px;
+        overflow: hidden
+    }
+
+    body > .el-container {
+        margin: 0
+    }
+
+    .center {
+        width: 570px
+    }
+
+    #app {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<div id="app">
+    <el-container>
+        <el-container>
+            <el-aside width="220.1px" style="background-color:#304156;color:#eef0f1;overflow:hidden;height:539px;margin-bottom:-8px;position:relative;z-index:999">
+                <el-menu default-active="2"
+                         style="width:220px"
+                         background-color='#304156'
+                         :collapse="isVisible"
+                         collapse-transition
+                         text-color="#eef0f1">
+                    <div style="text-align: center; color: #eef0f1; height: 50px; margin-bottom: 15px; margin-left: -4px"><img src="~/Content/img/房子.png" width="40px" height="40px" style="position:relative;top:10px" />房屋租赁管理系统</div>
+                    <el-submenu index="1">
+                        <template slot="title">
+                            <i class="el-icon-s-management"></i>
+                            <span>公司信息管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1" v-on:click="redirect('Dept')">部门管理</el-menu-item>
+                            <el-menu-item index="1-2" v-on:click="redirect('Duty')">职位管理</el-menu-item>
+                            <el-menu-item index="1-2" v-on:click="redirect('Employs')">员工管理</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+
+                    <el-submenu index="2">
+                        <template slot="title">
+                            <i class="el-icon-suitcase"></i>
+                            <span>业务信息管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="2-1">客户信息</el-menu-item>
+                            <el-menu-item index="2-2">房屋信息</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+            <el-container>
+                <el-header>
+                    <el-link v-on:click="Visible()" style="font-size:large" :underline="false" icon="el-icon-s-fold"></el-link>
+                </el-header>
+                <div style="width: 100%; border: 0.3333px solid #e4e7ed; margin-left: -6px "></div>
+                <el-main>
+                    <div style="margin-left:-10px;margin-top:-10px;width:100%;height:100%;background-color:white;">
+                        <el-tabs type="card" v-model="tabsSelect" closable v-on:tab-remove="removeTab">
+                            <el-tab-pane v-for="item in tabs" :label="item.title" :name="item.name">
+                                <div style="margin-top: -20px; margin-left: -20px;">
+                                    <iframe name="Content" id="Content" height="445px" width="100%" :src="item.url" frameborder="0">
+                                    </iframe>
+                                </div>
+                            </el-tab-pane>
+                        </el-tabs>
+                    </div>
+                </el-main>
+            </el-container>
+        </el-container>
+</div>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            tabs: [{
+                title: '主页',
+                name: 'Main',
+                url: '/Home/Login'
+            }],
+            tabsSelect: 'Main',
+            isVisible: false
+        },
+        methods: {
+            redirect: function (type) {
+                if (type == "Dept") {
+                    this.tabs.push({
+                        title: '部门管理',
+                        name: 'Dept',
+                        url: '/Departments/DepartmentsPage'
+                    })
+                }
+                if (type == "Duty") {
+                    this.tabs.push({
+                        title: '职位管理',
+                        name: 'Duty',
+                        url: '/Dutys/DutysPage'
+                    })
+                }
+                if (type == "Employs") {
+                    this.tabs.push({
+                        title: '员工管理',
+                        name: 'Employs',
+                        url: '/Employs/EmploysPage'
+                    })
+                }
+                //去除数组中重复的值
+                let hash = {};
+                var newArr = this.tabs.reduce((item, next) => {
+                    hash[next.name] ? '' : hash[next.name] = true && item.push(next);
+                    return item
+                }, []);
+                this.tabs = newArr;
+
+                this.tabsSelect = type
+            },
+            removeTab: function (tabname) {
+                if (this.tabs.length > 1) {
+                    var newtabs = this.tabs.filter(function (item) {
+                        return item.name != tabname
+                    })
+                    this.tabs = newtabs;
+                    this.tabsSelect = this.tabs[this.tabs.length - 1].name
+                } else {
+                    this.$message.error('已经是最后一条了，无法删除了');
+                }
+            },
+            Visible: function () {
+                this.isVisible = !this.isVisible
+            }
+        },
+        mounted: function () {
+            this.$nextTick(function () {
+                this.$notify({
+                    title: '温馨提示',
+                    dangerouslyUseHTMLString: true,
+                    message: '欢迎管理员' + '<span style="color:#409EFF;font-size:large">@ViewBag.UserName</span>' + '登陆系统',
+                    offset:100
+                });
+            })
+        }
+    })
+</script>

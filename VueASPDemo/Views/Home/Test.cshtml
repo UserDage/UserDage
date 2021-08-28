@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/My_Layout.cshtml";
+}
+<style>
+    /* scoped 需要去掉,不去掉,下面overflow-x: hidden;不会生效 */
+    .center {
+        margin: 0 auto;
+        width: 300px;
+        height: 600px;
+        background-color: #eee;
+    }
+
+        /* 需要在外层套一个div,切记命名特殊一点,防止因缺少scoped，对其他页面会有冲突 */
+        .center .el-scrollbar__wrap {
+            overflow: scroll;
+            overflow-x: hidden
+        }
+</style>
+<div id="app">
+    <h3 style="text-align: center">我是vue element-ui 滚动条的使用demo</h3>
+    <div class="center">
+        <el-scrollbar style="height: 600px">
+            <!-- 用于展示下拉，填充的内容 -->
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+            lazy_tomato <br />
+        </el-scrollbar>
+    </div>
+</div>
+<script>
+    let vm = new Vue({
+        el: '#app'
+    })
+</script>

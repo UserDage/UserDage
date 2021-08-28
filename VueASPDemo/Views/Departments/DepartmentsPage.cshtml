@@ -1,0 +1,278 @@
+﻿@{
+    ViewBag.Title = "DepartmentsPage";
+    Layout = "~/Views/Shared/My_Layout.cshtml";
+}
+
+<style>
+
+    #app {
+        margin-left: 60px;
+        margin-top: 20px;
+        height: 433px;
+        overflow-x: hidden;
+        background-color: white
+    }
+
+    .el-dialog {
+        overflow: hidden
+    }
+
+    html {
+        overflow: hidden
+    }
+
+    #app .el-scrollbar__wrap {
+        overflow: scroll;
+    }
+</style>
+
+<div id="app">
+    <el-scrollbar style="height:100%">
+        <span style="font-size:small">部门名称：</span><el-input style="width:220px;margin-bottom:20px" v-model="searchname" height="20" size='small'></el-input>&nbsp;&nbsp;<el-button type="primary" size="small" icon="el-icon-search" v-on:click="search()">查询</el-button>
+        <br /><el-link icon="el-icon-circle-plus-outline" v-on:click="EditorAdd(0)" style="margin-top:-25px;margin-bottom:-10px"><h4>添加新部门</h4></el-link>
+        <template>
+            <el-table :data="DeptInfo"
+                      style="width:659px"
+                      highlight-current-row
+                      v-loading="loading"
+                      stripe
+                      :default-sort="{prop: 'DepID', order: 'descending'}">
+                <el-table-column type="index" label=" ">
+                </el-table-column>
+                <el-input v-show="false" v-model="DeptInfo.DepID"></el-input>
+                <el-table-column prop="DepName"
+                                 label="部门名称"
+                                 width="170">
+                </el-table-column>
+                <el-table-column prop="DepMark"
+                                 label="部门描述"
+                                 width="220">
+                </el-table-column>
+                <el-table-column width="220">
+                    <template slot="header" slot-scope="scope">
+                        操作
+                    </template>
+                    <template slot-scope="scope">
+                        <el-link icon="el-icon-edit" v-on:click="EditorAdd(scope.row)">编辑</el-link>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <el-link type="danger" icon="el-icon-delete" v-on:click="del(scope.row)">删除</el-link>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="block">
+                <el-pagination :current-page="currentPage"
+                               :page-sizes="[5, 10, 20,30]"
+                               :page-size="pagesize"
+                               :page-count="pagecount"
+                               v-on:size-change="GetNewData"
+                               v-on:current-change="GetPageData"
+                               layout="total, sizes, prev, pager, next, jumper"
+                               :total="total">
+                </el-pagination>
+            </div>
+        </template>
+
+        @* Dialog窗体 *@
+        <el-dialog title="部门数据操作" :visible.sync="dialogFormVisible">
+            <el-form :model="form" style="margin-left:-10px">
+                <el-form-item hidden="hidden" v-model="form.depid"></el-form-item>
+                <el-form-item label="部门名称" :label-width="formLabelWidth">
+                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入部门名称"></el-input>
+                </el-form-item>
+                <el-form-item label="部门描述" :label-width="formLabelWidth">
+                    <el-input v-model="form.mark" autocomplete="off" placeholder="请输入部门描述"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button v-on:click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" v-on:click="submit()">确 定</el-button>
+            </div>
+        </el-dialog>
+    </el-scrollbar>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            total: 0,//总条数
+            pagecount: 0,//总共有多少页
+            currentPage: 1,//当前页
+            pagesize: 5,//每页显示条数
+            searchname: '',//查询的信息
+            DeptInfo: [],//部门信息
+            oldDeptinfo: [],//部门信息
+            loading: true,//数据加载
+            dialogTableVisible: false,//隐藏dialogTable
+            dialogFormVisible: false,//隐藏dialog表单
+            form: {
+                depid: '',
+                name: '',
+                mark: ''
+            },//dialog表单数据
+            formLabelWidth: '120px'//表单大小
+        },
+        methods: {
+            GetPageData(index) {//当前页发生改变，请求数据
+                var currentPage = index
+                var pagesize = this.pagesize
+                this.loading = true
+                axios.post("GetPageData", { currentPage: currentPage, pagesize: pagesize }).then((response) => {
+                    this.DeptInfo = response.data.Dept
+                    this.oldDeptinfo = response.data.Dept
+                    this.pagecount = response.data.pagecount
+                    this.total = response.data.total
+                    this.loading = false
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }, GetNewData(index) {//当页面显示条数发生改变重新加载数据
+                var currentPage = this.currentPage
+                var pagesize = index
+                this.loading = true
+                axios.post("GetPageData", { currentPage: currentPage, pagesize: pagesize }).then((response) => {
+                    this.DeptInfo = response.data.Dept
+                    this.oldDeptinfo = response.data.Dept
+                    this.pagecount = response.data.pagecount
+                    this.total = response.data.total
+                    this.loading = false
+                }).catch((error) => {
+                    console.log(error)
+                })
+            },
+            EditorAdd(data) {//修改和新增
+                this.dialogFormVisible = true
+                if (data.DepID > 0) {
+                    axios.post('DeptJson', { id: data.DepID }).then((response) => {
+                        this.form.depid = response.data.DepID
+                        this.form.name = response.data.DepName
+                        this.form.mark = response.data.DepMark
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+                } else {
+                    this.form.depid = ''
+                    this.form.name = ''
+                    this.form.mark = ''
+                }
+            },
+            del(data) {//删除数据
+                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post('Delete', { id: data.DepID })
+                        .then((response) => {
+                            if (response.data == true) {
+                                //删除成功后从原数组过滤掉与已删除数据ID相同的数据，返回新的数组
+                                this.DeptInfo = this.DeptInfo.filter((item) => {
+                                    return item.DepID != data.DepID;
+                                })
+                                this.$message({
+                                    type: 'success',
+                                    message: '删除成功!'
+                                });
+                            } else {
+                                this.$message({
+                                    type: 'success',
+                                    message: '删除失败!'
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            submit: function () {//提交新增或修改的数据
+                var obj = new Object();
+                obj.DepID = this.form.depid;
+                obj.DepName = this.form.name;
+                obj.DepMark = this.form.mark;
+                axios.post('AddorUpdate', { model: obj })
+                    .then((response) => {
+                        if (response.data == true) {
+                            this.loading = true
+                            if (this.form.depid > 0) {
+                                this.$message({
+                                    type: 'success',
+                                    message: '修改成功'
+                                })
+                            } else {
+                                this.$message({
+                                    type: 'success',
+                                    message: '新增成功'
+                                })
+                            }
+                            //刷新数据
+                            var currentPage = this.currentPage
+                            var pagesize = this.pagesize
+                            axios.post('GetPageData', {
+                                currentPage: currentPage, pagesize: pagesize
+                            })
+                                .then((response) => {
+                                    this.oldDeptinfo = response.data.Dept
+                                    this.DeptInfo = response.data.Dept
+                                    this.total = response.data.total
+                                    this.pagecount = response.data.pagecount
+                                    this.loading = false;
+                                    this.dialogFormVisible = false
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                    return
+                                });
+                        }
+
+                    })
+                    .catch((error) => {
+                        if (this.form.depid > 0) {
+                            this.$message({
+                                type: 'error',
+                                message: '修改失败'
+                            })
+                            return
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: '新增失败'
+                            })
+                            return
+                        }
+                    });
+                this.loading = true
+            },
+            search() { //查询数据
+                //每次查询前还原数组数据
+                this.DeptInfo = this.oldDeptinfo
+                if (this.searchname == "") {
+                    this.DeptInfo = this.oldDeptinfo
+                } else {
+                    this.DeptInfo = this.DeptInfo.filter((item) => {
+                        //返回数组中包含所查询字符的对象
+                        return item.DepName.search(this.searchname) > -1
+                    })
+                }
+            }
+        },
+        mounted: function () {
+            var currentPage = this.currentPage
+            var pagesize = this.pagesize
+            axios.post("GetPageData", { currentPage: currentPage, pagesize: pagesize }).then((response) => {
+                this.DeptInfo = response.data.Dept
+                this.oldDeptinfo = response.data.Dept
+                this.total = response.data.total
+                this.pagecount = response.data.pagecount
+                this.loading = false
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+    })
+</script>

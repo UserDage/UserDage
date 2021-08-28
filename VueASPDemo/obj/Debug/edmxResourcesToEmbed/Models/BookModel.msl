@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BooksDBModelStoreContainer" CdmEntityContainer="BooksDBEntities">
+    <EntitySetMapping Name="AddressManager">
+      <EntityTypeMapping TypeName="BooksDBModel.AddressManager">
+        <MappingFragment StoreEntitySet="AddressManager">
+          <ScalarProperty Name="AMID" ColumnName="AMID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AMUser" ColumnName="AMUser" />
+          <ScalarProperty Name="AMTel" ColumnName="AMTel" />
+          <ScalarProperty Name="AMAddress" ColumnName="AMAddress" />
+          <ScalarProperty Name="AMMark" ColumnName="AMMark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="BooksDBModel.Admins">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+          <ScalarProperty Name="AdminUser" ColumnName="AdminUser" />
+          <ScalarProperty Name="AdminPwd" ColumnName="AdminPwd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BLCategory">
+      <EntityTypeMapping TypeName="BooksDBModel.BLCategory">
+        <MappingFragment StoreEntitySet="BLCategory">
+          <ScalarProperty Name="BLID" ColumnName="BLID" />
+          <ScalarProperty Name="BLName" ColumnName="BLName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookAppraise">
+      <EntityTypeMapping TypeName="BooksDBModel.BookAppraise">
+        <MappingFragment StoreEntitySet="BookAppraise">
+          <ScalarProperty Name="BAID" ColumnName="BAID" />
+          <ScalarProperty Name="ODID" ColumnName="ODID" />
+          <ScalarProperty Name="BADesc" ColumnName="BADesc" />
+          <ScalarProperty Name="BAPoint" ColumnName="BAPoint" />
+          <ScalarProperty Name="BADate" ColumnName="BADate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="BooksDBModel.Books">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="BSID" ColumnName="BSID" />
+          <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
+          <ScalarProperty Name="BookAuthor" ColumnName="BookAuthor" />
+          <ScalarProperty Name="BookPublish" ColumnName="BookPublish" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="BookCount" ColumnName="BookCount" />
+          <ScalarProperty Name="BookMoney" ColumnName="BookMoney" />
+          <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
+          <ScalarProperty Name="BookDesc" ColumnName="BookDesc" />
+          <ScalarProperty Name="BookAuthorDesc" ColumnName="BookAuthorDesc" />
+          <ScalarProperty Name="BookComm" ColumnName="BookComm" />
+          <ScalarProperty Name="BookContent" ColumnName="BookContent" />
+          <ScalarProperty Name="BookSale" ColumnName="BookSale" />
+          <ScalarProperty Name="BookDeport" ColumnName="BookDeport" />
+          <ScalarProperty Name="BookIsBuy" ColumnName="BookIsBuy" />
+          <ScalarProperty Name="BookIsHot" ColumnName="BookIsHot" />
+          <ScalarProperty Name="BookIsDelete" ColumnName="BookIsDelete" />
+          <ScalarProperty Name="BookBuyDate" ColumnName="BookBuyDate" />
+          <ScalarProperty Name="BookHotDate" ColumnName="BookHotDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BSCategory">
+      <EntityTypeMapping TypeName="BooksDBModel.BSCategory">
+        <MappingFragment StoreEntitySet="BSCategory">
+          <ScalarProperty Name="BSID" ColumnName="BSID" />
+          <ScalarProperty Name="BLID" ColumnName="BLID" />
+          <ScalarProperty Name="BSName" ColumnName="BSName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetail">
+      <EntityTypeMapping TypeName="BooksDBModel.OrderDetail">
+        <MappingFragment StoreEntitySet="OrderDetail">
+          <ScalarProperty Name="ODID" ColumnName="ODID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="ODPrice" ColumnName="ODPrice" />
+          <ScalarProperty Name="ODCount" ColumnName="ODCount" />
+          <ScalarProperty Name="ODMoney" ColumnName="ODMoney" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="BooksDBModel.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AMID" ColumnName="AMID" />
+          <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="OrderState" ColumnName="OrderState" />
+          <ScalarProperty Name="OrderMoney" ColumnName="OrderMoney" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="BooksDBModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserSex" ColumnName="UserSex" />
+          <ScalarProperty Name="UserNick" ColumnName="UserNick" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Books">
+      <EntityTypeMapping TypeName="BooksDBModel.View_Books">
+        <MappingFragment StoreEntitySet="View_Books">
+          <ScalarProperty Name="BookAuthor" ColumnName="BookAuthor" />
+          <ScalarProperty Name="BookAuthorDesc" ColumnName="BookAuthorDesc" />
+          <ScalarProperty Name="BookBuyDate" ColumnName="BookBuyDate" />
+          <ScalarProperty Name="BookComm" ColumnName="BookComm" />
+          <ScalarProperty Name="BookContent" ColumnName="BookContent" />
+          <ScalarProperty Name="BookCount" ColumnName="BookCount" />
+          <ScalarProperty Name="BookDeport" ColumnName="BookDeport" />
+          <ScalarProperty Name="BookDesc" ColumnName="BookDesc" />
+          <ScalarProperty Name="BookHotDate" ColumnName="BookHotDate" />
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="BookIsBuy" ColumnName="BookIsBuy" />
+          <ScalarProperty Name="BookIsDelete" ColumnName="BookIsDelete" />
+          <ScalarProperty Name="BookIsHot" ColumnName="BookIsHot" />
+          <ScalarProperty Name="BookMoney" ColumnName="BookMoney" />
+          <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
+          <ScalarProperty Name="BookPublish" ColumnName="BookPublish" />
+          <ScalarProperty Name="BookSale" ColumnName="BookSale" />
+          <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
+          <ScalarProperty Name="BSID" ColumnName="BSID" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="BSName" ColumnName="BSName" />
+          <ScalarProperty Name="BLName" ColumnName="BLName" />
+          <ScalarProperty Name="BLID" ColumnName="BLID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_BSCategory">
+      <EntityTypeMapping TypeName="BooksDBModel.View_BSCategory">
+        <MappingFragment StoreEntitySet="View_BSCategory">
+          <ScalarProperty Name="BSID" ColumnName="BSID" />
+          <ScalarProperty Name="BSName" ColumnName="BSName" />
+          <ScalarProperty Name="BLID" ColumnName="BLID" />
+          <ScalarProperty Name="BLName" ColumnName="BLName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_OrderDetail">
+      <EntityTypeMapping TypeName="BooksDBModel.View_OrderDetail">
+        <MappingFragment StoreEntitySet="View_OrderDetail">
+          <ScalarProperty Name="ODID" ColumnName="ODID" />
+          <ScalarProperty Name="bookid" ColumnName="bookid" />
+          <ScalarProperty Name="ODPrice" ColumnName="ODPrice" />
+          <ScalarProperty Name="ODCount" ColumnName="ODCount" />
+          <ScalarProperty Name="BAID" ColumnName="BAID" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="OrderState" ColumnName="OrderState" />
+          <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="proc_page" FunctionName="BooksDBModel.Store.proc_page" />
+  </EntityContainerMapping>
+</Mapping>

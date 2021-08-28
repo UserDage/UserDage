@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BooksDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AddressManager">
+    <Key>
+      <PropertyRef Name="AMID" />
+    </Key>
+    <Property Name="AMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="AMUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AMTel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AMAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="AMMark" Type="Boolean" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_ADDRESSM_REFERENCE_USERS" FromRole="AddressManager" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AdminPwd" Type="String" MaxLength="47" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="BLCategory">
+    <Key>
+      <PropertyRef Name="BLID" />
+    </Key>
+    <Property Name="BLID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BLName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BSCategory" Relationship="Self.FK_BSCATEGO_REFERENCE_BLCATEGO" FromRole="BLCategory" ToRole="BSCategory" />
+  </EntityType>
+  <EntityType Name="BookAppraise">
+    <Key>
+      <PropertyRef Name="BAID" />
+    </Key>
+    <Property Name="BAID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ODID" Type="Int32" />
+    <Property Name="BADesc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="BAPoint" Type="Int32" />
+    <Property Name="BADate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK_BOOKAPPR_REFERENCE_ORDERDET" FromRole="BookAppraise" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BSID" Type="Int32" />
+    <Property Name="BookTitle" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="BookAuthor" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="BookPublish" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ISBN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BookCount" Type="Int32" />
+    <Property Name="BookMoney" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="BookPrice" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="BookDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BookAuthorDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BookComm" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BookContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BookSale" Type="Int32" />
+    <Property Name="BookDeport" Type="Int32" />
+    <Property Name="BookIsBuy" Type="Boolean" />
+    <Property Name="BookIsHot" Type="Boolean" />
+    <Property Name="BookIsDelete" Type="Boolean" />
+    <Property Name="BookBuyDate" Type="DateTime" Precision="3" />
+    <Property Name="BookHotDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BSCategory" Relationship="Self.FK_BOOKS_REFERENCE_BSCATEGO" FromRole="Books" ToRole="BSCategory" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK_ORDERDET_REFERENCE_BOOKS" FromRole="Books" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="BSCategory">
+    <Key>
+      <PropertyRef Name="BSID" />
+    </Key>
+    <Property Name="BSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BLID" Type="Int32" />
+    <Property Name="BSName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BLCategory" Relationship="Self.FK_BSCATEGO_REFERENCE_BLCATEGO" FromRole="BSCategory" ToRole="BLCategory" />
+    <NavigationProperty Name="Books" Relationship="Self.FK_BOOKS_REFERENCE_BSCATEGO" FromRole="BSCategory" ToRole="Books" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="ODID" />
+    </Key>
+    <Property Name="ODID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="BookID" Type="Int32" />
+    <Property Name="ODPrice" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="ODCount" Type="Int32" />
+    <Property Name="ODMoney" Type="Decimal" Precision="12" Scale="2" />
+    <NavigationProperty Name="BookAppraise" Relationship="Self.FK_BOOKAPPR_REFERENCE_ORDERDET" FromRole="OrderDetail" ToRole="BookAppraise" />
+    <NavigationProperty Name="Books" Relationship="Self.FK_ORDERDET_REFERENCE_BOOKS" FromRole="OrderDetail" ToRole="Books" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_ORDERDET_REFERENCE_ORDERS" FromRole="OrderDetail" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="AMID" Type="Int32" />
+    <Property Name="OrderNum" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="OrderState" Type="Int32" />
+    <Property Name="OrderMoney" Type="Decimal" Precision="12" Scale="2" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK_ORDERDET_REFERENCE_ORDERS" FromRole="Orders" ToRole="OrderDetail" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_ORDERS_REFERENCE_USERS" FromRole="Orders" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserPwd" Type="String" MaxLength="47" FixedLength="true" Unicode="false" />
+    <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserSex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="UserNick" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AddressManager" Relationship="Self.FK_ADDRESSM_REFERENCE_USERS" FromRole="Users" ToRole="AddressManager" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_ORDERS_REFERENCE_USERS" FromRole="Users" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="View_Books">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookAuthor" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="BookAuthorDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BookBuyDate" Type="DateTime" Precision="3" />
+    <Property Name="BookComm" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BookContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BookCount" Type="Int32" />
+    <Property Name="BookDeport" Type="Int32" />
+    <Property Name="BookDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BookHotDate" Type="DateTime" Precision="3" />
+    <Property Name="BookID" Type="Int32" Nullable="false" />
+    <Property Name="BookIsBuy" Type="Boolean" />
+    <Property Name="BookIsDelete" Type="Boolean" />
+    <Property Name="BookIsHot" Type="Boolean" />
+    <Property Name="BookMoney" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="BookPrice" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="BookPublish" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BookSale" Type="Int32" />
+    <Property Name="BookTitle" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="BSID" Type="Int32" />
+    <Property Name="ISBN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BSName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BLName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BLID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="View_BSCategory">
+    <Key>
+      <PropertyRef Name="BSID" />
+    </Key>
+    <Property Name="BSID" Type="Int32" Nullable="false" />
+    <Property Name="BSName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BLID" Type="Int32" />
+    <Property Name="BLName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_OrderDetail">
+    <Key>
+      <PropertyRef Name="ODID" />
+    </Key>
+    <Property Name="ODID" Type="Int32" Nullable="false" />
+    <Property Name="bookid" Type="Int32" />
+    <Property Name="ODPrice" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="ODCount" Type="Int32" />
+    <Property Name="BAID" Type="Int32" />
+    <Property Name="ISBN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="OrderState" Type="Int32" />
+    <Property Name="BookTitle" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_ADDRESSM_REFERENCE_USERS">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="AddressManager" Type="Self.AddressManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="AddressManager">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BSCATEGO_REFERENCE_BLCATEGO">
+    <End Role="BLCategory" Type="Self.BLCategory" Multiplicity="0..1" />
+    <End Role="BSCategory" Type="Self.BSCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BLCategory">
+        <PropertyRef Name="BLID" />
+      </Principal>
+      <Dependent Role="BSCategory">
+        <PropertyRef Name="BLID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BOOKAPPR_REFERENCE_ORDERDET">
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="0..1" />
+    <End Role="BookAppraise" Type="Self.BookAppraise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetail">
+        <PropertyRef Name="ODID" />
+      </Principal>
+      <Dependent Role="BookAppraise">
+        <PropertyRef Name="ODID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BOOKS_REFERENCE_BSCATEGO">
+    <End Role="BSCategory" Type="Self.BSCategory" Multiplicity="0..1" />
+    <End Role="Books" Type="Self.Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BSCategory">
+        <PropertyRef Name="BSID" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="BSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDERDET_REFERENCE_BOOKS">
+    <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="BookID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="BookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDERDET_REFERENCE_ORDERS">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDERS_REFERENCE_USERS">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BooksDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AddressManager" EntityType="Self.AddressManager" />
+    <EntitySet Name="Admins" EntityType="Self.Admins" />
+    <EntitySet Name="BLCategory" EntityType="Self.BLCategory" />
+    <EntitySet Name="BookAppraise" EntityType="Self.BookAppraise" />
+    <EntitySet Name="Books" EntityType="Self.Books" />
+    <EntitySet Name="BSCategory" EntityType="Self.BSCategory" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="View_Books" EntityType="Self.View_Books" />
+    <EntitySet Name="View_BSCategory" EntityType="Self.View_BSCategory" />
+    <EntitySet Name="View_OrderDetail" EntityType="Self.View_OrderDetail" />
+    <AssociationSet Name="FK_ADDRESSM_REFERENCE_USERS" Association="Self.FK_ADDRESSM_REFERENCE_USERS">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AddressManager" EntitySet="AddressManager" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BSCATEGO_REFERENCE_BLCATEGO" Association="Self.FK_BSCATEGO_REFERENCE_BLCATEGO">
+      <End Role="BLCategory" EntitySet="BLCategory" />
+      <End Role="BSCategory" EntitySet="BSCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BOOKAPPR_REFERENCE_ORDERDET" Association="Self.FK_BOOKAPPR_REFERENCE_ORDERDET">
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+      <End Role="BookAppraise" EntitySet="BookAppraise" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BOOKS_REFERENCE_BSCATEGO" Association="Self.FK_BOOKS_REFERENCE_BSCATEGO">
+      <End Role="BSCategory" EntitySet="BSCategory" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDERDET_REFERENCE_BOOKS" Association="Self.FK_ORDERDET_REFERENCE_BOOKS">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDERDET_REFERENCE_ORDERS" Association="Self.FK_ORDERDET_REFERENCE_ORDERS">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDERS_REFERENCE_USERS" Association="Self.FK_ORDERS_REFERENCE_USERS">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <FunctionImport Name="proc_page">
+      <Parameter Name="pageIndex" Mode="In" Type="Int32" />
+      <Parameter Name="pageSize" Mode="In" Type="Int32" />
+      <Parameter Name="tableName" Mode="In" Type="String" />
+      <Parameter Name="keyName" Mode="In" Type="String" />
+      <Parameter Name="filter" Mode="In" Type="String" />
+      <Parameter Name="where" Mode="In" Type="String" />
+      <Parameter Name="order" Mode="In" Type="String" />
+      <Parameter Name="dataCount" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

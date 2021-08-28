@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e4f5df14a66b4297bd6fa02856bb3623" Name="Diagram1">
+        <EntityTypeShape EntityType="LetDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.ChargeCategory" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.Customers" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.Departments" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.Dutys" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.Employs" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.HouseCategory" Width="1.5" PointX="3.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.HouseInfo" Width="1.5" PointX="6" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.JurisdicDuty" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.Jurisdictions" Width="1.5" PointX="3.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.Lets" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.PayInfo" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LetDBModel.Repair" Width="1.5" PointX="10.5" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_PayInfo_dbo_ChargeCategory_CCID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_Lets_dbo_Customers_CusID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_Employs_dbo_Departments_DepID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_Employs_dbo_Dutys_DutyID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_JurisdicDuty_dbo_Dutys_DutyID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_Lets_dbo_Employs_EmpID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_HouseInfo_dbo_HouseCategory_LCID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_Lets_dbo_HouseInfo_HID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_JurisdicDuty_dbo_Jurisdictions_JurID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_PayInfo_dbo_Lets_LetID" ManuallyRouted="false" />
+        <AssociationConnector Association="LetDBModel.FK_dbo_Repair_dbo_Lets_LetID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

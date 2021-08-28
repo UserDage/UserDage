@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/My_Layout.cshtml";
+}
+<style>
+    body {
+        font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    }
+
+    .father {
+        width: 600px;
+        height: 300px;
+        border-radius: 4px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 13%;
+    }
+
+    #app {
+        margin-left: 100px
+    }
+
+    .LoginImg {
+        position: relative;
+        top: -50px;
+        left: 150px;
+        border-radius: 50px
+    }
+</style>
+<div class="father">
+    <div id="app">
+        <div class="LoginImg">
+            <el-avatar src="~/Content/img/th.jpg" style="width:100px;height:100px"></el-avatar>
+        </div>
+        <div class="biaodan" style="margin-top:-50px">
+            <el-container>
+                <el-main>
+                    <el-form :rules="rules" :ref="form" :model="form" label-width="80px">
+                        <el-form-item label="账号：" prop="UserName">
+                            <el-input v-model="form.UserName" style="width:220px" placeholder="请输入您的账号"></el-input>
+                        </el-form-item>
+                        <el-form-item label="密码：" prop="UserPwd">
+                            <el-input v-model="form.UserPwd" style="width:220px" show-password placeholder="请输入您的密码"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" v-on:click="submitForm(form)" style="width:120px;margin-left:-30px">登录</el-button><el-button type="info" style="width:120px" v-on:click="ReInput()">重置</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-main>
+            </el-container>
+        </div>
+    </div>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            form: {
+                UserName: "",
+                UserPwd: ""
+            },
+            rules: {
+                UserName: [
+                    { required: true, message: '请输入用户名', trigger: 'blur' },
+                    { min: 5, max: 9, message: '用户名在 5 到 9 个字符', trigger: 'blur' }
+                ],
+                UserPwd: [
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    { min: 6, max: 12, message: '密码长度在 6 到 12 个字符', trigger: 'blur' }
+                ]
+            }
+        },
+        methods: {
+            ReInput: function () {
+                this.form.UserName = "";
+                this.form.UserPwd = "";
+            },
+            open2() {
+                this.$message({
+                    message: '恭喜你，这是一条成功消息',
+                    type: 'success'
+                });
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        axios.post('Login', {
+                            LoginName: this.form.UserName,
+                            LoginPWD: this.form.UserPwd
+                        })
+                            .then((response) => {
+                                if (response.data == true) {
+                                    this.$message({
+                                        type: 'success',
+                                        message: '正在登陆，请稍后......'
+                                    })
+                                    location.href = "Main"
+                                } else {
+                                    this.$message({
+                                        type: 'error',
+                                        message: '账号或密码错误，请重新输入'
+                                    })
+                                }
+                            })
+                            .catch(function () {
+
+                            })
+                    } else {
+                        return false
+                    }
+                });
+
+            }
+        }
+    })
+</script>

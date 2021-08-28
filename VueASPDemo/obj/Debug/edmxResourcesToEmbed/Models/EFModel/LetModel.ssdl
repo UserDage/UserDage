@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LetDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChargeCategory">
+    <Key>
+      <PropertyRef Name="CCID" />
+    </Key>
+    <Property Name="CCID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CCName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CCMark" Type="nvarchar" MaxLength="500" />
+    <Property Name="ISDate" Type="bit" />
+    <Property Name="CCState" Type="bit" />
+    <Property Name="CCColumn1" Type="varchar" MaxLength="50" />
+    <Property Name="CCColumn2" Type="varchar" MaxLength="50" />
+    <Property Name="CDateColumn" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CusID" />
+    </Key>
+    <Property Name="CusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CusName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CusSex" Type="nvarchar" MaxLength="1" />
+    <Property Name="CusTel" Type="varchar" MaxLength="50" />
+    <Property Name="CusCard" Type="char" MaxLength="18" />
+    <Property Name="CusState" Type="int" />
+  </EntityType>
+  <EntityType Name="Departments">
+    <Key>
+      <PropertyRef Name="DepID" />
+    </Key>
+    <Property Name="DepID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DepState" Type="bit" />
+    <Property Name="DepMark" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Dutys">
+    <Key>
+      <PropertyRef Name="DutyID" />
+    </Key>
+    <Property Name="DutyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DutyName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DutyMark" Type="nvarchar" MaxLength="500" />
+    <Property Name="DutyState" Type="bit" />
+  </EntityType>
+  <EntityType Name="Employs">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepID" Type="int" />
+    <Property Name="DutyID" Type="int" />
+    <Property Name="LoginName" Type="varchar" MaxLength="18" />
+    <Property Name="LoginPWD" Type="char" MaxLength="47" />
+    <Property Name="EmpName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmpSex" Type="nvarchar" MaxLength="1" />
+    <Property Name="EmpTel" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmpAdd" Type="nvarchar" MaxLength="100" />
+    <Property Name="EmpState" Type="int" />
+    <Property Name="EmpMark" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="HouseCategory">
+    <Key>
+      <PropertyRef Name="HCID" />
+    </Key>
+    <Property Name="HCID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HCName" Type="nvarchar" MaxLength="50" />
+    <Property Name="HCMark" Type="nvarchar" MaxLength="500" />
+    <Property Name="HCState" Type="bit" />
+  </EntityType>
+  <EntityType Name="HouseInfo">
+    <Key>
+      <PropertyRef Name="HID" />
+    </Key>
+    <Property Name="HID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HCID" Type="int" />
+    <Property Name="HAdd" Type="nvarchar" MaxLength="100" />
+    <Property Name="HNum" Type="nvarchar" MaxLength="50" />
+    <Property Name="HType" Type="nvarchar" MaxLength="50" />
+    <Property Name="HArea" Type="int" />
+    <Property Name="HDirection" Type="nvarchar" MaxLength="50" />
+    <Property Name="HRent" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="HNet" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="HElectric" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="HWater" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="HElectricMoney" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="HWaterMoney" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="HMark" Type="nvarchar" MaxLength="500" />
+    <Property Name="HState" Type="int" />
+  </EntityType>
+  <EntityType Name="JurisdicDuty">
+    <Key>
+      <PropertyRef Name="JDID" />
+    </Key>
+    <Property Name="JDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JurID" Type="int" />
+    <Property Name="DutyID" Type="int" />
+  </EntityType>
+  <EntityType Name="Jurisdictions">
+    <Key>
+      <PropertyRef Name="JurID" />
+    </Key>
+    <Property Name="JurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JurName" Type="nvarchar" MaxLength="50" />
+    <Property Name="JurValue" Type="nvarchar" MaxLength="500" />
+    <Property Name="JurState" Type="int" />
+  </EntityType>
+  <EntityType Name="Lets">
+    <Key>
+      <PropertyRef Name="LetID" />
+    </Key>
+    <Property Name="LetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HID" Type="int" />
+    <Property Name="CusID" Type="int" />
+    <Property Name="EmpID" Type="int" />
+    <Property Name="LetBeginDate" Type="date" />
+    <Property Name="ExpectEndDate" Type="date" />
+    <Property Name="LetEndDate" Type="date" />
+    <Property Name="LetRent" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="LetNet" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="BeginElectric" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="BeginWater" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="EndElectric" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="EndWater" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="EndMoney" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="CurrentNetDate" Type="date" />
+    <Property Name="CurrentRentDate" Type="date" />
+    <Property Name="CreateEmp" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="LetState" Type="int" />
+    <Property Name="LetMark" Type="nvarchar" MaxLength="500" />
+    <Property Name="LetElectric" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="LetWater" Type="numeric" Precision="8" Scale="2" />
+  </EntityType>
+  <EntityType Name="PayInfo">
+    <Key>
+      <PropertyRef Name="PayID" />
+    </Key>
+    <Property Name="PayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LetID" Type="int" />
+    <Property Name="CCID" Type="int" />
+    <Property Name="PayNum" Type="char" MaxLength="14" />
+    <Property Name="CreateEmp" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="PayPrice" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="PayAmount" Type="int" />
+    <Property Name="PayBeginDate" Type="date" />
+    <Property Name="PayEndDate" Type="date" />
+    <Property Name="PayMark" Type="nvarchar" MaxLength="500" />
+    <Property Name="PayMoney1" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="PayMoney2" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="PayState" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Repair">
+    <Key>
+      <PropertyRef Name="RepID" />
+    </Key>
+    <Property Name="RepID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LetID" Type="int" />
+    <Property Name="RepDate" Type="datetime" />
+    <Property Name="RepContent" Type="nvarchar" MaxLength="500" />
+    <Property Name="RepEmp" Type="int" />
+    <Property Name="RepState" Type="int" />
+    <Property Name="RepMark" Type="nvarchar" MaxLength="500" />
+    <Property Name="RepEndDate" Type="datetime" />
+    <Property Name="CreateEmp" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_dbo_Employs_dbo_Departments_DepID">
+    <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
+    <End Role="Employs" Type="Self.Employs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departments">
+        <PropertyRef Name="DepID" />
+      </Principal>
+      <Dependent Role="Employs">
+        <PropertyRef Name="DepID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Employs_dbo_Dutys_DutyID">
+    <End Role="Dutys" Type="Self.Dutys" Multiplicity="0..1" />
+    <End Role="Employs" Type="Self.Employs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dutys">
+        <PropertyRef Name="DutyID" />
+      </Principal>
+      <Dependent Role="Employs">
+        <PropertyRef Name="DutyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_HouseInfo_dbo_HouseCategory_LCID">
+    <End Role="HouseCategory" Type="Self.HouseCategory" Multiplicity="0..1" />
+    <End Role="HouseInfo" Type="Self.HouseInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseCategory">
+        <PropertyRef Name="HCID" />
+      </Principal>
+      <Dependent Role="HouseInfo">
+        <PropertyRef Name="HCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_JurisdicDuty_dbo_Dutys_DutyID">
+    <End Role="Dutys" Type="Self.Dutys" Multiplicity="0..1" />
+    <End Role="JurisdicDuty" Type="Self.JurisdicDuty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dutys">
+        <PropertyRef Name="DutyID" />
+      </Principal>
+      <Dependent Role="JurisdicDuty">
+        <PropertyRef Name="DutyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_JurisdicDuty_dbo_Jurisdictions_JurID">
+    <End Role="Jurisdictions" Type="Self.Jurisdictions" Multiplicity="0..1" />
+    <End Role="JurisdicDuty" Type="Self.JurisdicDuty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jurisdictions">
+        <PropertyRef Name="JurID" />
+      </Principal>
+      <Dependent Role="JurisdicDuty">
+        <PropertyRef Name="JurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Lets_dbo_Customers_CusID">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="Lets" Type="Self.Lets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="CusID" />
+      </Principal>
+      <Dependent Role="Lets">
+        <PropertyRef Name="CusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Lets_dbo_Employs_EmpID">
+    <End Role="Employs" Type="Self.Employs" Multiplicity="0..1" />
+    <End Role="Lets" Type="Self.Lets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employs">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="Lets">
+        <PropertyRef Name="EmpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Lets_dbo_HouseInfo_HID">
+    <End Role="HouseInfo" Type="Self.HouseInfo" Multiplicity="0..1" />
+    <End Role="Lets" Type="Self.Lets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseInfo">
+        <PropertyRef Name="HID" />
+      </Principal>
+      <Dependent Role="Lets">
+        <PropertyRef Name="HID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PayInfo_dbo_ChargeCategory_CCID">
+    <End Role="ChargeCategory" Type="Self.ChargeCategory" Multiplicity="0..1" />
+    <End Role="PayInfo" Type="Self.PayInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChargeCategory">
+        <PropertyRef Name="CCID" />
+      </Principal>
+      <Dependent Role="PayInfo">
+        <PropertyRef Name="CCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PayInfo_dbo_Lets_LetID">
+    <End Role="Lets" Type="Self.Lets" Multiplicity="0..1" />
+    <End Role="PayInfo" Type="Self.PayInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lets">
+        <PropertyRef Name="LetID" />
+      </Principal>
+      <Dependent Role="PayInfo">
+        <PropertyRef Name="LetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Repair_dbo_Lets_LetID">
+    <End Role="Lets" Type="Self.Lets" Multiplicity="0..1" />
+    <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lets">
+        <PropertyRef Name="LetID" />
+      </Principal>
+      <Dependent Role="Repair">
+        <PropertyRef Name="LetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LetDBModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChargeCategory" EntityType="Self.ChargeCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dutys" EntityType="Self.Dutys" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employs" EntityType="Self.Employs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HouseCategory" EntityType="Self.HouseCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HouseInfo" EntityType="Self.HouseInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JurisdicDuty" EntityType="Self.JurisdicDuty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Jurisdictions" EntityType="Self.Jurisdictions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lets" EntityType="Self.Lets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PayInfo" EntityType="Self.PayInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Repair" EntityType="Self.Repair" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_Employs_dbo_Departments_DepID" Association="Self.FK_dbo_Employs_dbo_Departments_DepID">
+      <End Role="Departments" EntitySet="Departments" />
+      <End Role="Employs" EntitySet="Employs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Employs_dbo_Dutys_DutyID" Association="Self.FK_dbo_Employs_dbo_Dutys_DutyID">
+      <End Role="Dutys" EntitySet="Dutys" />
+      <End Role="Employs" EntitySet="Employs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_HouseInfo_dbo_HouseCategory_LCID" Association="Self.FK_dbo_HouseInfo_dbo_HouseCategory_LCID">
+      <End Role="HouseCategory" EntitySet="HouseCategory" />
+      <End Role="HouseInfo" EntitySet="HouseInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_JurisdicDuty_dbo_Dutys_DutyID" Association="Self.FK_dbo_JurisdicDuty_dbo_Dutys_DutyID">
+      <End Role="Dutys" EntitySet="Dutys" />
+      <End Role="JurisdicDuty" EntitySet="JurisdicDuty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_JurisdicDuty_dbo_Jurisdictions_JurID" Association="Self.FK_dbo_JurisdicDuty_dbo_Jurisdictions_JurID">
+      <End Role="Jurisdictions" EntitySet="Jurisdictions" />
+      <End Role="JurisdicDuty" EntitySet="JurisdicDuty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Lets_dbo_Customers_CusID" Association="Self.FK_dbo_Lets_dbo_Customers_CusID">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Lets" EntitySet="Lets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Lets_dbo_Employs_EmpID" Association="Self.FK_dbo_Lets_dbo_Employs_EmpID">
+      <End Role="Employs" EntitySet="Employs" />
+      <End Role="Lets" EntitySet="Lets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Lets_dbo_HouseInfo_HID" Association="Self.FK_dbo_Lets_dbo_HouseInfo_HID">
+      <End Role="HouseInfo" EntitySet="HouseInfo" />
+      <End Role="Lets" EntitySet="Lets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PayInfo_dbo_ChargeCategory_CCID" Association="Self.FK_dbo_PayInfo_dbo_ChargeCategory_CCID">
+      <End Role="ChargeCategory" EntitySet="ChargeCategory" />
+      <End Role="PayInfo" EntitySet="PayInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PayInfo_dbo_Lets_LetID" Association="Self.FK_dbo_PayInfo_dbo_Lets_LetID">
+      <End Role="Lets" EntitySet="Lets" />
+      <End Role="PayInfo" EntitySet="PayInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Repair_dbo_Lets_LetID" Association="Self.FK_dbo_Repair_dbo_Lets_LetID">
+      <End Role="Lets" EntitySet="Lets" />
+      <End Role="Repair" EntitySet="Repair" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

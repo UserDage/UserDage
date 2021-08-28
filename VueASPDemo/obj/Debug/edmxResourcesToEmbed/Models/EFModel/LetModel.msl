@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LetDBModelStoreContainer" CdmEntityContainer="LetDBEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="LetDBModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChargeCategory">
+      <EntityTypeMapping TypeName="LetDBModel.ChargeCategory">
+        <MappingFragment StoreEntitySet="ChargeCategory">
+          <ScalarProperty Name="CCID" ColumnName="CCID" />
+          <ScalarProperty Name="CCName" ColumnName="CCName" />
+          <ScalarProperty Name="CCMark" ColumnName="CCMark" />
+          <ScalarProperty Name="ISDate" ColumnName="ISDate" />
+          <ScalarProperty Name="CCState" ColumnName="CCState" />
+          <ScalarProperty Name="CCColumn1" ColumnName="CCColumn1" />
+          <ScalarProperty Name="CCColumn2" ColumnName="CCColumn2" />
+          <ScalarProperty Name="CDateColumn" ColumnName="CDateColumn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="LetDBModel.Customers">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="CusID" ColumnName="CusID" />
+          <ScalarProperty Name="CusName" ColumnName="CusName" />
+          <ScalarProperty Name="CusSex" ColumnName="CusSex" />
+          <ScalarProperty Name="CusTel" ColumnName="CusTel" />
+          <ScalarProperty Name="CusCard" ColumnName="CusCard" />
+          <ScalarProperty Name="CusState" ColumnName="CusState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="LetDBModel.Departments">
+        <MappingFragment StoreEntitySet="Departments">
+          <ScalarProperty Name="DepID" ColumnName="DepID" />
+          <ScalarProperty Name="DepName" ColumnName="DepName" />
+          <ScalarProperty Name="DepState" ColumnName="DepState" />
+          <ScalarProperty Name="DepMark" ColumnName="DepMark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dutys">
+      <EntityTypeMapping TypeName="LetDBModel.Dutys">
+        <MappingFragment StoreEntitySet="Dutys">
+          <ScalarProperty Name="DutyID" ColumnName="DutyID" />
+          <ScalarProperty Name="DutyName" ColumnName="DutyName" />
+          <ScalarProperty Name="DutyMark" ColumnName="DutyMark" />
+          <ScalarProperty Name="DutyState" ColumnName="DutyState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employs">
+      <EntityTypeMapping TypeName="LetDBModel.Employs">
+        <MappingFragment StoreEntitySet="Employs">
+          <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+          <ScalarProperty Name="DepID" ColumnName="DepID" />
+          <ScalarProperty Name="DutyID" ColumnName="DutyID" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="LoginPWD" ColumnName="LoginPWD" />
+          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+          <ScalarProperty Name="EmpSex" ColumnName="EmpSex" />
+          <ScalarProperty Name="EmpTel" ColumnName="EmpTel" />
+          <ScalarProperty Name="EmpAdd" ColumnName="EmpAdd" />
+          <ScalarProperty Name="EmpState" ColumnName="EmpState" />
+          <ScalarProperty Name="EmpMark" ColumnName="EmpMark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseCategory">
+      <EntityTypeMapping TypeName="LetDBModel.HouseCategory">
+        <MappingFragment StoreEntitySet="HouseCategory">
+          <ScalarProperty Name="HCID" ColumnName="HCID" />
+          <ScalarProperty Name="HCName" ColumnName="HCName" />
+          <ScalarProperty Name="HCMark" ColumnName="HCMark" />
+          <ScalarProperty Name="HCState" ColumnName="HCState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseInfo">
+      <EntityTypeMapping TypeName="LetDBModel.HouseInfo">
+        <MappingFragment StoreEntitySet="HouseInfo">
+          <ScalarProperty Name="HID" ColumnName="HID" />
+          <ScalarProperty Name="HCID" ColumnName="HCID" />
+          <ScalarProperty Name="HAdd" ColumnName="HAdd" />
+          <ScalarProperty Name="HNum" ColumnName="HNum" />
+          <ScalarProperty Name="HType" ColumnName="HType" />
+          <ScalarProperty Name="HArea" ColumnName="HArea" />
+          <ScalarProperty Name="HDirection" ColumnName="HDirection" />
+          <ScalarProperty Name="HRent" ColumnName="HRent" />
+          <ScalarProperty Name="HNet" ColumnName="HNet" />
+          <ScalarProperty Name="HElectric" ColumnName="HElectric" />
+          <ScalarProperty Name="HWater" ColumnName="HWater" />
+          <ScalarProperty Name="HElectricMoney" ColumnName="HElectricMoney" />
+          <ScalarProperty Name="HWaterMoney" ColumnName="HWaterMoney" />
+          <ScalarProperty Name="HMark" ColumnName="HMark" />
+          <ScalarProperty Name="HState" ColumnName="HState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JurisdicDuty">
+      <EntityTypeMapping TypeName="LetDBModel.JurisdicDuty">
+        <MappingFragment StoreEntitySet="JurisdicDuty">
+          <ScalarProperty Name="JDID" ColumnName="JDID" />
+          <ScalarProperty Name="JurID" ColumnName="JurID" />
+          <ScalarProperty Name="DutyID" ColumnName="DutyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jurisdictions">
+      <EntityTypeMapping TypeName="LetDBModel.Jurisdictions">
+        <MappingFragment StoreEntitySet="Jurisdictions">
+          <ScalarProperty Name="JurID" ColumnName="JurID" />
+          <ScalarProperty Name="JurName" ColumnName="JurName" />
+          <ScalarProperty Name="JurValue" ColumnName="JurValue" />
+          <ScalarProperty Name="JurState" ColumnName="JurState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lets">
+      <EntityTypeMapping TypeName="LetDBModel.Lets">
+        <MappingFragment StoreEntitySet="Lets">
+          <ScalarProperty Name="LetID" ColumnName="LetID" />
+          <ScalarProperty Name="HID" ColumnName="HID" />
+          <ScalarProperty Name="CusID" ColumnName="CusID" />
+          <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+          <ScalarProperty Name="LetBeginDate" ColumnName="LetBeginDate" />
+          <ScalarProperty Name="ExpectEndDate" ColumnName="ExpectEndDate" />
+          <ScalarProperty Name="LetEndDate" ColumnName="LetEndDate" />
+          <ScalarProperty Name="LetRent" ColumnName="LetRent" />
+          <ScalarProperty Name="LetNet" ColumnName="LetNet" />
+          <ScalarProperty Name="BeginElectric" ColumnName="BeginElectric" />
+          <ScalarProperty Name="BeginWater" ColumnName="BeginWater" />
+          <ScalarProperty Name="EndElectric" ColumnName="EndElectric" />
+          <ScalarProperty Name="EndWater" ColumnName="EndWater" />
+          <ScalarProperty Name="EndMoney" ColumnName="EndMoney" />
+          <ScalarProperty Name="CurrentNetDate" ColumnName="CurrentNetDate" />
+          <ScalarProperty Name="CurrentRentDate" ColumnName="CurrentRentDate" />
+          <ScalarProperty Name="CreateEmp" ColumnName="CreateEmp" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LetState" ColumnName="LetState" />
+          <ScalarProperty Name="LetMark" ColumnName="LetMark" />
+          <ScalarProperty Name="LetElectric" ColumnName="LetElectric" />
+          <ScalarProperty Name="LetWater" ColumnName="LetWater" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PayInfo">
+      <EntityTypeMapping TypeName="LetDBModel.PayInfo">
+        <MappingFragment StoreEntitySet="PayInfo">
+          <ScalarProperty Name="PayID" ColumnName="PayID" />
+          <ScalarProperty Name="LetID" ColumnName="LetID" />
+          <ScalarProperty Name="CCID" ColumnName="CCID" />
+          <ScalarProperty Name="PayNum" ColumnName="PayNum" />
+          <ScalarProperty Name="CreateEmp" ColumnName="CreateEmp" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="PayPrice" ColumnName="PayPrice" />
+          <ScalarProperty Name="PayAmount" ColumnName="PayAmount" />
+          <ScalarProperty Name="PayBeginDate" ColumnName="PayBeginDate" />
+          <ScalarProperty Name="PayEndDate" ColumnName="PayEndDate" />
+          <ScalarProperty Name="PayMark" ColumnName="PayMark" />
+          <ScalarProperty Name="PayMoney1" ColumnName="PayMoney1" />
+          <ScalarProperty Name="PayMoney2" ColumnName="PayMoney2" />
+          <ScalarProperty Name="PayState" ColumnName="PayState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Repair">
+      <EntityTypeMapping TypeName="LetDBModel.Repair">
+        <MappingFragment StoreEntitySet="Repair">
+          <ScalarProperty Name="RepID" ColumnName="RepID" />
+          <ScalarProperty Name="LetID" ColumnName="LetID" />
+          <ScalarProperty Name="RepDate" ColumnName="RepDate" />
+          <ScalarProperty Name="RepContent" ColumnName="RepContent" />
+          <ScalarProperty Name="RepEmp" ColumnName="RepEmp" />
+          <ScalarProperty Name="RepState" ColumnName="RepState" />
+          <ScalarProperty Name="RepMark" ColumnName="RepMark" />
+          <ScalarProperty Name="RepEndDate" ColumnName="RepEndDate" />
+          <ScalarProperty Name="CreateEmp" ColumnName="CreateEmp" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

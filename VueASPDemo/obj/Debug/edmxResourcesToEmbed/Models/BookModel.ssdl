@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BooksDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AddressManager">
+    <Key>
+      <PropertyRef Name="AMID" />
+    </Key>
+    <Property Name="AMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="AMUser" Type="nvarchar" MaxLength="100" />
+    <Property Name="AMTel" Type="varchar" MaxLength="100" />
+    <Property Name="AMAddress" Type="nvarchar" MaxLength="500" />
+    <Property Name="AMMark" Type="bit" />
+  </EntityType>
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdminUser" Type="nvarchar" MaxLength="50" />
+    <Property Name="AdminPwd" Type="char" MaxLength="47" />
+  </EntityType>
+  <EntityType Name="BLCategory">
+    <Key>
+      <PropertyRef Name="BLID" />
+    </Key>
+    <Property Name="BLID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BLName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="BookAppraise">
+    <Key>
+      <PropertyRef Name="BAID" />
+    </Key>
+    <Property Name="BAID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ODID" Type="int" />
+    <Property Name="BADesc" Type="nvarchar" MaxLength="500" />
+    <Property Name="BAPoint" Type="int" />
+    <Property Name="BADate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BSID" Type="int" />
+    <Property Name="BookTitle" Type="nvarchar" MaxLength="1000" />
+    <Property Name="BookAuthor" Type="nvarchar" MaxLength="1000" />
+    <Property Name="BookPublish" Type="nvarchar" MaxLength="100" />
+    <Property Name="ISBN" Type="varchar" MaxLength="100" />
+    <Property Name="BookCount" Type="int" />
+    <Property Name="BookMoney" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="BookPrice" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="BookDesc" Type="text" />
+    <Property Name="BookAuthorDesc" Type="text" />
+    <Property Name="BookComm" Type="text" />
+    <Property Name="BookContent" Type="text" />
+    <Property Name="BookSale" Type="int" />
+    <Property Name="BookDeport" Type="int" />
+    <Property Name="BookIsBuy" Type="bit" />
+    <Property Name="BookIsHot" Type="bit" />
+    <Property Name="BookIsDelete" Type="bit" />
+    <Property Name="BookBuyDate" Type="datetime" />
+    <Property Name="BookHotDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BSCategory">
+    <Key>
+      <PropertyRef Name="BSID" />
+    </Key>
+    <Property Name="BSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BLID" Type="int" />
+    <Property Name="BSName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="ODID" />
+    </Key>
+    <Property Name="ODID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" />
+    <Property Name="BookID" Type="int" />
+    <Property Name="ODPrice" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="ODCount" Type="int" />
+    <Property Name="ODMoney" Type="numeric" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="AMID" Type="int" />
+    <Property Name="OrderNum" Type="char" MaxLength="14" />
+    <Property Name="OrderDate" Type="datetime" />
+    <Property Name="OrderState" Type="int" />
+    <Property Name="OrderMoney" Type="numeric" Precision="12" Scale="2" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserPwd" Type="char" MaxLength="47" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="UserSex" Type="varchar" MaxLength="10" />
+    <Property Name="UserNick" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“BooksDB.dbo.View_Books”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="View_Books">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookAuthor" Type="nvarchar" MaxLength="1000" />
+    <Property Name="BookAuthorDesc" Type="text" />
+    <Property Name="BookBuyDate" Type="datetime" />
+    <Property Name="BookComm" Type="text" />
+    <Property Name="BookContent" Type="text" />
+    <Property Name="BookCount" Type="int" />
+    <Property Name="BookDeport" Type="int" />
+    <Property Name="BookDesc" Type="text" />
+    <Property Name="BookHotDate" Type="datetime" />
+    <Property Name="BookID" Type="int" Nullable="false" />
+    <Property Name="BookIsBuy" Type="bit" />
+    <Property Name="BookIsDelete" Type="bit" />
+    <Property Name="BookIsHot" Type="bit" />
+    <Property Name="BookMoney" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="BookPrice" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="BookPublish" Type="nvarchar" MaxLength="100" />
+    <Property Name="BookSale" Type="int" />
+    <Property Name="BookTitle" Type="nvarchar" MaxLength="1000" />
+    <Property Name="BSID" Type="int" />
+    <Property Name="ISBN" Type="varchar" MaxLength="100" />
+    <Property Name="BSName" Type="nvarchar" MaxLength="100" />
+    <Property Name="BLName" Type="nvarchar" MaxLength="100" />
+    <Property Name="BLID" Type="int" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“BooksDB.dbo.View_BSCategory”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="View_BSCategory">
+    <Key>
+      <PropertyRef Name="BSID" />
+    </Key>
+    <Property Name="BSID" Type="int" Nullable="false" />
+    <Property Name="BSName" Type="nvarchar" MaxLength="100" />
+    <Property Name="BLID" Type="int" />
+    <Property Name="BLName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“BooksDB.dbo.View_OrderDetail”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="View_OrderDetail">
+    <Key>
+      <PropertyRef Name="ODID" />
+    </Key>
+    <Property Name="ODID" Type="int" Nullable="false" />
+    <Property Name="bookid" Type="int" />
+    <Property Name="ODPrice" Type="numeric" Precision="8" Scale="2" />
+    <Property Name="ODCount" Type="int" />
+    <Property Name="BAID" Type="int" />
+    <Property Name="ISBN" Type="varchar" MaxLength="100" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="OrderState" Type="int" />
+    <Property Name="BookTitle" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <Association Name="FK_ADDRESSM_REFERENCE_USERS">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="AddressManager" Type="Self.AddressManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="AddressManager">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BOOKAPPR_REFERENCE_ORDERDET">
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="0..1" />
+    <End Role="BookAppraise" Type="Self.BookAppraise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetail">
+        <PropertyRef Name="ODID" />
+      </Principal>
+      <Dependent Role="BookAppraise">
+        <PropertyRef Name="ODID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BOOKS_REFERENCE_BSCATEGO">
+    <End Role="BSCategory" Type="Self.BSCategory" Multiplicity="0..1" />
+    <End Role="Books" Type="Self.Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BSCategory">
+        <PropertyRef Name="BSID" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="BSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BSCATEGO_REFERENCE_BLCATEGO">
+    <End Role="BLCategory" Type="Self.BLCategory" Multiplicity="0..1" />
+    <End Role="BSCategory" Type="Self.BSCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BLCategory">
+        <PropertyRef Name="BLID" />
+      </Principal>
+      <Dependent Role="BSCategory">
+        <PropertyRef Name="BLID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDERDET_REFERENCE_BOOKS">
+    <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="BookID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="BookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDERDET_REFERENCE_ORDERS">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDERS_REFERENCE_USERS">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="BuildNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
+  <Function Name="proc_page" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pageIndex" Type="int" Mode="In" />
+    <Parameter Name="pageSize" Type="int" Mode="In" />
+    <Parameter Name="tableName" Type="varchar" Mode="In" />
+    <Parameter Name="keyName" Type="varchar" Mode="In" />
+    <Parameter Name="filter" Type="varchar" Mode="In" />
+    <Parameter Name="where" Type="varchar" Mode="In" />
+    <Parameter Name="order" Type="varchar" Mode="In" />
+    <Parameter Name="dataCount" Type="int" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="BooksDBModelStoreContainer">
+    <EntitySet Name="AddressManager" EntityType="Self.AddressManager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BLCategory" EntityType="Self.BLCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BookAppraise" EntityType="Self.BookAppraise" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BSCategory" EntityType="Self.BSCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="View_Books" EntityType="Self.View_Books" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_Books].[BookAuthor] AS [BookAuthor], 
+    [View_Books].[BookAuthorDesc] AS [BookAuthorDesc], 
+    [View_Books].[BookBuyDate] AS [BookBuyDate], 
+    [View_Books].[BookComm] AS [BookComm], 
+    [View_Books].[BookContent] AS [BookContent], 
+    [View_Books].[BookCount] AS [BookCount], 
+    [View_Books].[BookDeport] AS [BookDeport], 
+    [View_Books].[BookDesc] AS [BookDesc], 
+    [View_Books].[BookHotDate] AS [BookHotDate], 
+    [View_Books].[BookID] AS [BookID], 
+    [View_Books].[BookIsBuy] AS [BookIsBuy], 
+    [View_Books].[BookIsDelete] AS [BookIsDelete], 
+    [View_Books].[BookIsHot] AS [BookIsHot], 
+    [View_Books].[BookMoney] AS [BookMoney], 
+    [View_Books].[BookPrice] AS [BookPrice], 
+    [View_Books].[BookPublish] AS [BookPublish], 
+    [View_Books].[BookSale] AS [BookSale], 
+    [View_Books].[BookTitle] AS [BookTitle], 
+    [View_Books].[BSID] AS [BSID], 
+    [View_Books].[ISBN] AS [ISBN], 
+    [View_Books].[BSName] AS [BSName], 
+    [View_Books].[BLName] AS [BLName], 
+    [View_Books].[BLID] AS [BLID]
+    FROM [dbo].[View_Books] AS [View_Books]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_BSCategory" EntityType="Self.View_BSCategory" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_BSCategory].[BSID] AS [BSID], 
+    [View_BSCategory].[BSName] AS [BSName], 
+    [View_BSCategory].[BLID] AS [BLID], 
+    [View_BSCategory].[BLName] AS [BLName]
+    FROM [dbo].[View_BSCategory] AS [View_BSCategory]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_OrderDetail" EntityType="Self.View_OrderDetail" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_OrderDetail].[ODID] AS [ODID], 
+    [View_OrderDetail].[bookid] AS [bookid], 
+    [View_OrderDetail].[ODPrice] AS [ODPrice], 
+    [View_OrderDetail].[ODCount] AS [ODCount], 
+    [View_OrderDetail].[BAID] AS [BAID], 
+    [View_OrderDetail].[ISBN] AS [ISBN], 
+    [View_OrderDetail].[UserID] AS [UserID], 
+    [View_OrderDetail].[OrderState] AS [OrderState], 
+    [View_OrderDetail].[BookTitle] AS [BookTitle]
+    FROM [dbo].[View_OrderDetail] AS [View_OrderDetail]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_ADDRESSM_REFERENCE_USERS" Association="Self.FK_ADDRESSM_REFERENCE_USERS">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AddressManager" EntitySet="AddressManager" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BOOKAPPR_REFERENCE_ORDERDET" Association="Self.FK_BOOKAPPR_REFERENCE_ORDERDET">
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+      <End Role="BookAppraise" EntitySet="BookAppraise" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BOOKS_REFERENCE_BSCATEGO" Association="Self.FK_BOOKS_REFERENCE_BSCATEGO">
+      <End Role="BSCategory" EntitySet="BSCategory" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BSCATEGO_REFERENCE_BLCATEGO" Association="Self.FK_BSCATEGO_REFERENCE_BLCATEGO">
+      <End Role="BLCategory" EntitySet="BLCategory" />
+      <End Role="BSCategory" EntitySet="BSCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDERDET_REFERENCE_BOOKS" Association="Self.FK_ORDERDET_REFERENCE_BOOKS">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDERDET_REFERENCE_ORDERS" Association="Self.FK_ORDERDET_REFERENCE_ORDERS">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDERS_REFERENCE_USERS" Association="Self.FK_ORDERS_REFERENCE_USERS">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "DutysPage";
+    Layout = "~/Views/Shared/My_Layout.cshtml";
+}
+<style>
+    #app {
+        margin-left: 60px;
+        margin-top: 20px;
+    }
+
+    .el-form-item__error {
+        margin-left: 100px
+    }
+</style>
+<div id="app">
+    @*搜索组件*@
+    <Search-Info></Search-Info><br />
+    @* 新增职位组件 *@
+    <add-duty></add-duty>
+    @*表格组件*@
+    <table-com></table-com>
+    @* 分页组件 *@
+    <page-com></page-com>
+    @* dialog窗体组件 *@
+    <edit-com></edit-com>
+</div>
+<script src="~/Scripts/MyJS/DutyJS.js"></script>
