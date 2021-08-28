@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\VueASPDemo",
+    "\\VueASPDemo\\Controllers",
+    "\\VueASPDemo\\Views",
+    "\\VueASPDemo\\Views\\Employs"
   ],
-  "SelectedNode": "\\VueASPDemo.sln",
+  "SelectedNode": "\\VueASPDemo\\Views\\Employs\\EmploysPage.cshtml",
   "PreviewInSolutionExplorer": false
 }
