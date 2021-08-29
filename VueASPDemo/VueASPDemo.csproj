@@ -263,6 +263,10 @@
     <Content Include="package.json" />
     <Content Include="Content\ElementUI\fonts\element-icons.woff" />
     <Content Include="Content\ElementUI\fonts\element-icons.ttf" />
+    <Content Include="数据库文件\LetDB.mdf" />
+    <Content Include="数据库文件\LetDB_log.ldf">
+      <DependentUpon>LetDB.mdf</DependentUpon>
+    </Content>
     <EntityDeploy Include="Models\EFModel\LetModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LetModel.Designer.cs</LastGenOutput>
