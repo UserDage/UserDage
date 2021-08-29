@@ -2,4 +2,401 @@
     ViewBag.Title = "EmploysPage";
     Layout = "~/Views/Shared/My_Layout.cshtml";
 }
-<h2>这是员工管理界面，暂未开发</h2>
+<div id="app">
+    //搜索组件
+    <search-info></search-info>
+    <table-com></table-com>
+    <page-com></page-com>
+</div>
+<script>
+    //组件通信中心
+    var vs = new Vue()
+    //搜索组件
+    Vue.component('search-info', {
+        data: function () {
+            return {
+                SearchName: '',
+                DefaultDept: '',
+                DefaultDuty: '',
+                DutyInfo: [],
+                DeptInfo: [],
+                pagesize: ''
+            }
+        },
+        template: `
+<div style='width:auto'>
+<template>
+<span style='font-size:small'>员工姓名：</span><el-input v-model='SearchName' size='small' style="width:180px"></el-input>
+<span style='font-size:small'>所属部门：</span>
+<el-select size='small'  v-model='DefaultDept' placeholder="请选择">
+<el-option v-for='item in DeptInfo' :key='item.DepID' :label='item.DepName' :value='item.DepID'></el-option>
+</el-select>
+<span style='font-size:small'>职位：</span>
+<el-select size='small' v-model='DefaultDuty' placeholder="请选择">
+<el-option v-for='item in DutyInfo' :key='item.DutyID' :label='item.DutyName' :value='item.DutyID'></el-option>
+</el-select>
+<el-button type='primary' icon="el-icon-search" size='small' v-on:click='search'>搜索</el-button>
+</template>
+</div>
+`, methods: {
+            search() {
+                var currPage = 1
+                var pagesize = this.pagesize
+                var obj = new Object()
+                obj.EmpName = this.SearchName
+                obj.DepID = this.DefaultDept
+                obj.DutyID = this.DefaultDuty
+                axios.post('EmpData', { currentPage: currPage, pagesize: pagesize, emp: obj }).then((result) => {
+                    var data = result.data.EmpInfo
+                    var total = result.data.total
+                    var pagecount = result.data.pagecount
+
+                    vs.$emit('emp-search', data, total, pagecount, obj)
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }
+        }, mounted: function () {
+            function GetDept() {
+                return axios.get('GetDept')
+            }
+            function GetDuty() {
+                return axios.get('GetDuty')
+            }
+            Promise.all([GetDept(), GetDuty()]).then((results) => {
+                this.DeptInfo = results[0].data
+                this.DutyInfo = results[1].data
+            })
+            vs.$on("emp-data", (data, currentPage, pagesize) => {
+                this.pagesize = pagesize
+            })
+        }
+    })
+    //新增职位组件
+    Vue.component('add-duty', {
+        template: `<el-link icon="el-icon-circle-plus-outline" v-on:click="AddDuty" style="margin-top:-25px;margin-bottom:-10px"><h4>添加新部门</h4></el-link>`,
+        methods: {
+            AddDuty() {
+                vs.$emit('add-dutys', true)
+            }
+        }
+    })
+    //分页组件
+    Vue.component('page-com', {
+        data: function () {
+            return {
+                currentPage: 1,//当前页
+                pagesize: 5,//每页显示多少条,
+                total: 0,//总共有多少条数据
+                pagecount: 0,//总共有多少页
+                EmpInfo: [],//分页请求的数据
+                SearchData: []
+            }
+        }, methods: {
+            GetPageData(index) {//当前页发生改变，请求数据
+                var currentPage = index
+                var pagesize = this.pagesize
+                var obj = this.SearchData
+                axios.post("EmpData", { currentPage: currentPage, pagesize: pagesize, emp: obj }).then((response) => {
+                    this.EmpInfo = response.data.EmpInfo
+                    this.pagecount = response.data.pagecount
+                    this.total = response.data.total
+                    vs.$emit('emp-data', this.EmpInfo, this.currentPage, this.pagesize)
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }, GetNewData(index) {//当页面显示条数发生改变重新加载数据
+                var currentPage = this.currentPage
+                var pagesize = index
+                var obj = this.SearchData
+                axios.post("EmpData", { currentPage: currentPage, pagesize: pagesize, emp: obj }).then((response) => {
+                    this.EmpInfo = response.data.EmpInfo
+                    this.pagecount = response.data.pagecount
+                    this.total = response.data.total
+                    vs.$emit('emp-data', this.EmpInfo, this.currentPage, this.pagesize)
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }
+        },
+        template: ` <el-pagination :total="total"
+                       :page-size="pagesize"
+                        v-on:size-change="GetNewData"
+                        v-on:current-change="GetPageData"
+                       :page-count="pagecount"
+                       :current-page.sync="currentPage"
+                       :page-sizes="[5,10,20,30]"
+                       layout="total,sizes,prev,pager,next,jumper">
+        </el-pagination>`,
+        mounted: function () {
+            vs.$on('emp-search', (data, total, pagecount, obj) => {
+                this.EmpInfo = data
+                this.currentPage = 1
+                this.total = total
+                this.pagecount = pagecount
+                this.SearchData = obj
+            })
+            vs.$on('updated-data', (data, currentPage, pagesize) => {
+                this.EmpInfo = data
+                this.currentPage = currentPage
+                vs.$emit('emp-data', this.EmpInfo, this.currentPage, this.pagesize)
+            })
+            vs.$on('deleting-data', (currentPage, pagesize) => {
+                this.currentPage = currentPage
+                var obj = new Object()
+                obj.EmpName = this.SearchName
+                obj.DepID = this.depid
+                obj.EmpID = this.dutyid
+                if (obj.EmpName != null) {
+                    axios.post('EmpData', { currentPage: currPage, pagesize: pagesize, emp: obj }).then((result) => {
+                        this.EmpInfo = result.data.EmpInfo
+                        this.total = result.data.total
+                        this.pagecount = result.data.pagecount
+                        vs.$emit('emp-data', this.EmpInfo, this.currentPage, this.pagesize)
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+                } else {
+                    axios.post('EmpData', { currentPage: currPage, pagesize: pagesize }).then((result) => {
+                        this.EmpInfo = result.data.EmpInfo
+                        this.total = result.data.total
+                        this.pagecount = result.data.pagecount
+                        vs.$emit('emp-data', this.EmpInfo, this.currentPage, this.pagesize)
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+                }
+            })
+            var currPage = this.currentPage
+            var obj = new Object()
+            obj.EmpName = this.SearchName
+            obj.DepID = this.depid
+            obj.EmpID = this.dutyid
+            var pagesize = this.pagesize
+            axios.post('EmpData', { currentPage: currPage, pagesize: pagesize, emp: obj }).then((result) => {
+                this.EmpInfo = result.data.EmpInfo
+                this.total = result.data.total
+                this.pagecount = result.data.pagecount
+                vs.$emit('emp-data', this.EmpInfo, this.currentPage, this.pagesize)
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
+    })
+    //表格组件
+    Vue.component('table-com', {
+        data: function () {
+            return {
+                EmpInfo: [],
+                loading: true,
+                currentPage: '',
+                pagesize: ''
+            }
+        },
+        template: ` <el-table :data="EmpInfo" v-loading="loading" style="width:max-content" highlight-current-row>
+            <el-input v-model="EmpInfo.EmpID" hidden></el-input>
+            <el-table-column type="index" label=" " width="50px"></el-table-column>
+            <el-table-column prop="LoginName" label="员工账号" width="150px">
+            </el-table-column>
+            <el-table-column prop="DepName" label="所属部门" width="150px">
+            </el-table-column>
+            <el-table-column prop="DutyName" label="职位" width="150px"></el-table-column>
+            <el-table-column prop="EmpName" label="员工姓名" width="150px"></el-table-column>
+            <el-table-column prop="EmpSex" label="性别" width="100px"></el-table-column>
+            <el-table-column prop="EmpTel" label="联系电话" width="150px"></el-table-column>
+            <el-table-column prop="EmpAdd" label="家庭住址" width="150px"></el-table-column>
+            <el-table-column prop="EmpState" label="状态" width="150px"></el-table-column>
+            <el-table-column width="220px">
+                <template slot="header" slot-scope="scope">
+                    操作
+                </template>
+                <template slot-scope="scope">
+                    <el-link icon="el-icon-edit" type="text" v-on:click="EditorAdd(scope.row)">编辑</el-link>
+                    <el-link icon="el-icon-delete" type="danger" v-on:click="Delete(scope.row)">删除</el-link>
+                    <el-link icon="el-icon-delete" type="danger" v-on:click="Reset(scope.row)">重置密码</el-link>
+                </template>
+            </el-table-column>
+        </el-table>`,
+        mounted: function () {
+            vs.$on('emp-data', (data, currentPage, pagesize) => {
+                this.EmpInfo = data
+                this.pagesize = pagesize
+                this.currentPage = currentPage
+                var state = { 1: "在职", 2: "离职", 3: "退休" }
+                if (this.EmpInfo != null) {
+                    this.EmpInfo.forEach((item) => {
+                        item.EmpState = state[item.EmpState]
+                    })
+                }
+                this.loading = false
+            })
+            vs.$on('emp-search', (data, currentPage, pagesize) => {
+                this.EmpInfo = data
+                this.pagesize = pagesize
+                this.currentPage = currentPage
+                var state = { 1: "在职", 2: "离职", 3: "退休" }
+                if (this.EmpInfo != null) {
+                    this.EmpInfo.forEach((item) => {
+                        item.EmpState = state[item.EmpState]
+                    })
+                }
+                this.loading = false
+            })
+        }, methods: {
+            EditorAdd(row) {
+                var IsVisible = true
+                var EmpID = row.EmpID
+                vs.$emit('edit-me', IsVisible, EmpID, this.currentPage, this.pagesize)
+            },
+            Delete(row) {
+                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post('Delete', { id: row.EmpID })
+                        .then((response) => {
+                            var isno = response.data
+                            if (isno) {
+                                //删除成功后从原数组过滤掉与已删除数据ID相同的数据，返回新的数组
+                                var currentPage = this.currentPage
+                                var pagesize = this.pagesize
+                                vs.$emit('deleting-data', currentPage, pagesize)
+                                this.$message({
+                                    type: 'success',
+                                    message: '删除成功!'
+                                });
+                            } else {
+                                this.$message({
+                                    type: 'error',
+                                    message: '删除失败!'
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            }
+        }
+    })
+    //dialog窗口组件
+    Vue.component('edit-com', {
+        data: function () {
+            return {
+                rules: {//表单验证规则
+                    DutyName: [{ required: true, message: '部门名称不能为空', trigger: 'blur' }],
+                    DutyMark: [{ required: true, message: '部门描述不能为空', tirgger: 'blur' }]
+                },
+                Operation: "",//dialog窗体标题，显示正在进行的操作
+                IsDialog: false,//是否显示dialog窗体
+                DialogFormData: {
+                    EmpID: 0,
+                    DutyName: "",
+                    DutyMark: ""
+                },
+                currentPage: '',
+                pagesize: ''
+            }
+        }, template: ` <el-dialog :title="Operation"
+                   :visible.sync="IsDialog"
+                   width="400px">
+            <el-form :model="DialogFormData" style="margin-top:-90px;text-align:center" :rules="rules" :ref="DialogFormData">
+                <el-form-item style="visibility:hidden">
+                    <el-input hidden v-model="DialogFormData.EmpID"></el-input>
+                </el-form-item>
+                <el-form-item label="职位名称" prop="DutyName">
+                    <el-input v-model="DialogFormData.DutyName" style="width:240px"></el-input>
+                </el-form-item>
+                <el-form-item label="职位描述" prop="DutyMark">
+                    <el-input v-model="DialogFormData.DutyMark" style="width:240px"></el-input>
+                </el-form-item>
+                <div solt="footer" class="dialog-footer" style="text-align:center">
+                    <el-button type="primary" v-on:click="submit(DialogFormData)">确定</el-button>
+                    <el-button type="info" v-on:click="IsDialog=false">取消</el-button>
+                </div>
+            </el-form>
+        </el-dialog>`, mounted: function () {
+            vs.$on('edit-me', (IsVisible, EmpID) => {
+                this.Operation = "职位编辑"
+                this.IsDialog = IsVisible
+                this.DialogFormData.EmpID = EmpID
+
+                axios.post('DutysJson', { id: EmpID }).then((result) => {
+                    this.DialogFormData.DutyName = result.data.DutyName
+                    this.DialogFormData.DutyMark = result.data.DutyMark
+                })
+            })
+            vs.$on('add-dutys', (IsVisible) => {
+                this.Operation = "新增职位"
+                this.IsDialog = IsVisible
+                this.DialogFormData.EmpID = 0
+                this.DialogFormData.DutyName = ''
+                this.DialogFormData.DutyMark = ''
+            })
+            vs.$on('emp-data', (data, currentPage, pagesize) => {
+                this.currentPage = currentPage
+                this.pagesize = pagesize
+            })
+        }, methods: {
+            submit(DialogFormData) {
+                this.$refs[DialogFormData].validate((valid) => {
+                    if (valid) {
+                        var data = new Object()
+                        data.EmpID = DialogFormData.EmpID
+                        data.DutyName = DialogFormData.DutyName
+                        data.DutyMark = DialogFormData.DutyMark
+                        axios.post('AddorUpdate', { dutys: data }).then((result) => {
+                            if (result.data == true) {
+                                if (this.DialogFormData.EmpID > 0) {
+                                    this.$message({
+                                        type: 'success',
+                                        message: '修改成功！'
+                                    })
+                                } else {
+                                    this.$message({
+                                        type: 'success',
+                                        message: '新增成功！'
+                                    })
+                                }
+                                var currentPage = this.currentPage
+                                var pagesize = this.pagesize
+                                axios.post("DutysPageData", { currentPage: currentPage, pagesize: pagesize }).then((response) => {
+                                    vs.$emit('updated-data', response.data.EmpInfo, currentPage, pagesize)
+                                }).catch((error) => {
+                                    console.log(error)
+                                })
+                                this.IsDialog = false
+                            } else {
+                                if (this.DialogFormData.EmpID > 0) {
+                                    this.$message({
+                                        type: 'error',
+                                        message: '修改失败！'
+                                    })
+                                } else {
+                                    this.$message({
+                                        type: 'error',
+                                        message: '新增失败！'
+                                    })
+                                }
+                                this.IsDialog = false
+                            }
+                        }).catch((error) => {
+                            console.log(error)
+                        })
+                    } else {
+                        return false
+                    }
+                })
+            }
+        }
+    })
+    let vm = new Vue({
+        el: '#app'
+    })
+</script>

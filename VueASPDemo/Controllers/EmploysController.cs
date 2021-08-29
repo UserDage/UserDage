@@ -16,25 +16,25 @@ namespace VueASPDemo.Controllers
             return View();
         }
 
-        public ActionResult EmpData(EmpModel emp, int page, int rows)
+        public ActionResult EmpData(EmpModel emp, int currentPage, int pagesize)
         {
             int count;
-            var data = EmploysBLL.EmpSearchALL(emp, page, rows, out count);
-            return Json(data, JsonRequestBehavior.AllowGet);
+            var data = EmploysBLL.EmpSearchALL(emp, currentPage, pagesize, out count);
+            return Json(new { EmpInfo = data, total = count, pagecount = Math.Ceiling(count / (decimal)pagesize) }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetDept()
         {
             var data = DepartmentsBLL.GetDeptALL();
             data.Insert(0, new DepartmentsModel() { DepID = -1, DepName = "全部" });
-            return Json(data);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetDuty()
         {
             var data = DutysBLL.GetDutyALL();
             data.Insert(0, new DutysModel() { DutyID = -1, DutyName = "全部" });
-            return Json(data);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Edit(EmpModel emp)
